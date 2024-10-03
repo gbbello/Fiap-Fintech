@@ -5,10 +5,10 @@ public class FintechAccount extends Profile {
     //Atributos do objeto
     private String userName;
     private int accountType;
-    private ArrayList<InvestmentAccount> investmentAccounts;
-    private ArrayList<CurrentAccount> currentAccounts;
-    private ArrayList<Income> incomes;
-    private ArrayList<OutCome> outComes;
+    private ArrayList<InvestmentAccount> investmentAccounts =  new ArrayList<InvestmentAccount>();
+    private ArrayList<CurrentAccount> currentAccounts =  new ArrayList<CurrentAccount>();
+    private ArrayList<Income> incomes = new ArrayList<Income>();
+    private ArrayList<OutCome> outComes = new ArrayList<OutCome>();
     private double balance;
 
 
@@ -16,20 +16,31 @@ public class FintechAccount extends Profile {
         super();
     }
 
-    public FintechAccount(String userName, int accountType, ArrayList<InvestmentAccount> investmentAccounts, ArrayList<CurrentAccount> currentAccounts) {
-        super();
-        this.userName = userName;
-        this.accountType = accountType;
-        this.investmentAccounts = investmentAccounts;
-        this.currentAccounts = currentAccounts;
-    }
 
-    public FintechAccount(String name, String lastName, String rg, String cpf, String sex, String birthdate, String eMail, Address address, String userName, int accountType, ArrayList<InvestmentAccount> investmentAccounts, ArrayList<CurrentAccount> currentAccounts) {
+    public FintechAccount(String name, String lastName, String rg, String cpf, String sex, String birthdate, String eMail, Address address, String userName, int accountType, ArrayList<InvestmentAccount> investmentAccounts, ArrayList<CurrentAccount> currentAccounts, ArrayList<OutCome> outComes,  ArrayList<Income> incomes) {
         super(name, lastName, rg, cpf, sex, birthdate, eMail, address);
         this.userName = userName;
         this.accountType = accountType;
-        this.investmentAccounts = investmentAccounts;
-        this.currentAccounts = currentAccounts;
+        this.investmentAccounts =  new ArrayList<InvestmentAccount>();
+        this.currentAccounts =  new ArrayList<CurrentAccount>();
+        this.incomes =  new ArrayList<Income>();
+        this.outComes =  new ArrayList<OutCome>();
+    }
+
+    public void addCurrentAccount(CurrentAccount obj){
+        this.currentAccounts.add(obj);
+    }
+    public void addInvestimentAccount(InvestmentAccount obj){
+        this.investmentAccounts.add(obj);
+    }
+
+    public void addIncome(Income obj){
+
+       this.incomes.add(obj);
+    }
+
+    public void addOutCome(OutCome obj){
+        this.outComes.add(obj);
     }
 
     public void calcBalance(){

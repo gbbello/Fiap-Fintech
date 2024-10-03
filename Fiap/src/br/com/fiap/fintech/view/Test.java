@@ -8,11 +8,6 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) {
 
-        var currentAccountList = new ArrayList<CurrentAccount>();
-        var investmentAccountList = new ArrayList<InvestmentAccount>();
-
-        var incomeList = new ArrayList<Income>();
-        var outComeList = new ArrayList<OutCome>();
 
         Scanner sc = new Scanner(System.in);
 
@@ -28,15 +23,16 @@ public class Test {
         fintechAccount.setEndereco(new Address("Rua Odilon Martins de Andrades", 170, "A", "22790-230","Rio de Janeiro","RJ"));
 
         // Adiciono conta corrente
-        currentAccountList.add(new CurrentAccount(217, 32,23401,1000, 30.12));
-        currentAccountList.add(new CurrentAccount(117, 22,34401, -40,35.23));
-        fintechAccount.setCurrentAccount(currentAccountList);
+        fintechAccount.addCurrentAccount(new CurrentAccount(217, 32,23401,1000, 30.12));
+        fintechAccount.addCurrentAccount(new CurrentAccount(117, 22,34401, -40,35.23));
 
         // Adiciono conta de investimento
-        investmentAccountList.add(new InvestmentAccount(323, 10, 34210, 1200, 1.32, 10.25));
-        fintechAccount.setInvestmentAccount(investmentAccountList);
+        fintechAccount.addInvestimentAccount(new InvestmentAccount(323, 10, 34210, 1200, 1.32, 10.25));
 
+        // Faz um balanco incial
         fintechAccount.calcBalance();
+
+
         System.out.println("Olá " + fintechAccount.getName() + "! Sou a aplicação da Fintech. Aqui estão suas informações:"
                 +"\nNome de usuário: "+ fintechAccount.getUserName()
                 +"\nTipo de conta: "+ fintechAccount.getAccountType()
@@ -65,28 +61,26 @@ public class Test {
 
 
         do {
-            System.out.println("-----\nO que você quer fazer? \n[1] Adicionar Recebimento \n[2] Adicionar Dispesa \n[3] Saldo Total \n[4] Sair" );
+            System.out.println("-----\nO que você quer fazer? \n[1] Adicionar Recebimento \n[2] Adicionar Dispesa \n[3] Saldo Total \n[4] Adicionar Conta Corrent \n[5] Adicionar Conta Investimento \n[6] Sair" );
             op= sc.nextInt();
             switch (op) {
                 case 1:
                     System.out.println("Qual o valor:");
                     double value = sc.nextDouble();
-                    incomeList.add(new Income(1, value,"09/09/2024","Recebimento via pix", "Pix",1));
-                    fintechAccount.setIncomes(incomeList);
-                    fintechAccount.calcBalance();
+                    fintechAccount.addIncome(new Income(1, value,"09/09/2024","Recebimento via pix", "Pix",1));
                     break;
                 case 2:
                     System.out.println("Qual o valor:");
                     double value2 = sc.nextDouble();
-                    outComeList.add(new OutCome(1, value2,"09/09/2024","Recebimento via pix", 1));
-                    fintechAccount.setOutComes(outComeList);
-                    fintechAccount.calcBalance();
+                    fintechAccount.addOutCome(new OutCome(1, value2,"09/09/2024","Recebimento via pix", 1));
                     break;
                 case 3:
+                    fintechAccount.calcBalance();
                     System.out.println("Seu saldo é:");
                     if (fintechAccount.getCurrentAccount()!=null){
                         for (var curAccount : fintechAccount.getCurrentAccount()) {
-                            System.out.println(curAccount.getBalance());
+                            System.out.println(curAccount.getAg() + "/"+ curAccount.getCc());
+                            System.out.println(curAccount.getBalance() +"\n");
                         };
                     }
                     if (fintechAccount.getInvestmentAccount()!=null){
@@ -109,13 +103,36 @@ public class Test {
                     System.out.println("Balanco: "+ fintechAccount.getBalance());
 
                     break;
+
                 case 4:
+
+                    System.out.println("Nova Conta Corrente:");
+                    System.out.println("Codigo do Banco");
+                    int bankCode = sc.nextInt();
+                    System.out.println("Agencia");
+                    int ag = sc.nextInt();
+
+                    System.out.println("Conta Corrente");
+                    int cc = sc.nextInt();
+
+                    System.out.println("Saldo");
+                    int balance= sc.nextInt();
+                    System.out.println("Taxas");
+                    double tax= sc.nextDouble();
+                    fintechAccount.addCurrentAccount(new CurrentAccount(bankCode, ag, cc,balance, tax));
+
+                    break;
+                case 5:
+                    System.out.println("Finalizando o programa");
+                    //fintechAccount.addInvestimentAccount();
+                    break;
+                case 6:
                     System.out.println("Finalizando o programa");
                     break;
                 default:
                     System.out.println("Opção invalida!");
             }
-        }while(op != 4);
+        }while(op != 6);
 
         sc.close();
 
