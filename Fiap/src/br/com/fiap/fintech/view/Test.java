@@ -1,8 +1,6 @@
 package br.com.fiap.fintech.view;
-
 import br.com.fiap.fintech.model.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Test {
@@ -27,7 +25,7 @@ public class Test {
         fintechAccount.addCurrentAccount(new CurrentAccount(117, 22,34401, -40,35.23));
 
         // Adiciono conta de investimento
-        fintechAccount.addInvestimentAccount(new InvestmentAccount(323, 10, 34210, 1200, 1.32, 10.25));
+        fintechAccount.addInvestmentAccount(new InvestmentAccount(323, 10, 34210, 1200, 1.32, 10.25));
 
         // Faz um balanco incial
         fintechAccount.calcBalance();
@@ -48,7 +46,7 @@ public class Test {
                     + "\nConta Corrent: " + account.getCc()
                     + "\nSaldo: " + account.getBalance()
             );
-        };
+        }
 
         System.out.println("\nSuas contas de investimento:");
         for (var account: fintechAccount.getInvestmentAccount()) {
@@ -57,7 +55,7 @@ public class Test {
                     + "\nSaldo: " + account.getBalance()
                     + "\nRentabilidade: " +account.getReturnRate()+"%"
             );
-        };
+        }
 
 
         do {
@@ -81,23 +79,23 @@ public class Test {
                         for (var curAccount : fintechAccount.getCurrentAccount()) {
                             System.out.println(curAccount.getAg() + "/"+ curAccount.getCc());
                             System.out.println(curAccount.getBalance() +"\n");
-                        };
+                        }
                     }
                     if (fintechAccount.getInvestmentAccount()!=null){
                         for (var invAccount : fintechAccount.getInvestmentAccount()) {
                             System.out.println(invAccount.getBalance());
-                        };
+                        }
                     }
                     if (fintechAccount.getIncomes()!=null){
                         for (var transaction : fintechAccount.getIncomes()) {
                             System.out.println(transaction.getValue());
-                        };
+                        }
                     }
 
                     if (fintechAccount.getOutComes()!=null){
                         for (var transaction : fintechAccount.getOutComes()) {
                             System.out.println("-" + transaction.getValue());
-                        };
+                        }
                     }
 
                     System.out.println("Balanco: "+ fintechAccount.getBalance());

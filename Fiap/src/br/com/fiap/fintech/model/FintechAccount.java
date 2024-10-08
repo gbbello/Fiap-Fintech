@@ -5,10 +5,10 @@ public class FintechAccount extends Profile {
     //Atributos do objeto
     private String userName;
     private int accountType;
-    private ArrayList<InvestmentAccount> investmentAccounts =  new ArrayList<InvestmentAccount>();
-    private ArrayList<CurrentAccount> currentAccounts =  new ArrayList<CurrentAccount>();
-    private ArrayList<Income> incomes = new ArrayList<Income>();
-    private ArrayList<OutCome> outComes = new ArrayList<OutCome>();
+    private ArrayList<InvestmentAccount> investmentAccounts =  new ArrayList<>();
+    private ArrayList<CurrentAccount> currentAccounts =  new ArrayList<>();
+    private ArrayList<Income> incomes = new ArrayList<>();
+    private ArrayList<OutCome> outComes = new ArrayList<>();
     private double balance;
 
 
@@ -21,16 +21,16 @@ public class FintechAccount extends Profile {
         super(name, lastName, rg, cpf, sex, birthdate, eMail, address);
         this.userName = userName;
         this.accountType = accountType;
-        this.investmentAccounts =  new ArrayList<InvestmentAccount>();
-        this.currentAccounts =  new ArrayList<CurrentAccount>();
-        this.incomes =  new ArrayList<Income>();
-        this.outComes =  new ArrayList<OutCome>();
+        this.investmentAccounts = investmentAccounts;
+        this.currentAccounts = currentAccounts;
+        this.incomes = incomes;
+        this.outComes = outComes;
     }
 
     public void addCurrentAccount(CurrentAccount obj){
         this.currentAccounts.add(obj);
     }
-    public void addInvestimentAccount(InvestmentAccount obj){
+    public void addInvestmentAccount(InvestmentAccount obj){
         this.investmentAccounts.add(obj);
     }
 
@@ -45,27 +45,21 @@ public class FintechAccount extends Profile {
 
     public void calcBalance(){
         this.balance = 0;
-        if (currentAccounts != null){
-            for (var curAccount: getCurrentAccount()) {
+            for (var curAccount: currentAccounts) {
                 this.balance += curAccount.getBalance();
             }
-        }
-        if (investmentAccounts != null){
+
             for (var invAccount: investmentAccounts) {
                 this.balance += invAccount.getBalance();
             }
-        }
-        if (this.incomes!=null){
+
             for (var income : incomes) {
                 this.balance += income.getValue();
             }
-        }
 
-        if (this.outComes!=null){
             for (var outCome : getOutComes()) {
                 this.balance -= outCome.getValue();
             }
-        }
     }
 
 
