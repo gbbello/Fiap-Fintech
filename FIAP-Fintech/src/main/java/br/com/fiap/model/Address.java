@@ -48,6 +48,7 @@ public class Address {
     public void setFkUsuario(int fkUsuario) {
         this.fkUsuario = fkUsuario;
     }
+
     public String getLogradouro() {
         return nomeLogradouro;
     }

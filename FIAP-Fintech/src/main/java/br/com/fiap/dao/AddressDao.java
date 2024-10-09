@@ -18,12 +18,13 @@ public class AddressDao {
         conexao = ConnectionFactory.getConnection();
     }
     public void cadastrar(Address address) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_fin_address (id_end, fk_usuario, nm_lougradouro, nm_bairro, nm_uf, nr_lougradouro, ds_complemento) VALUES (sq_t_fin_endereco.nextval,1, ?, ?, ?, ?, ?)");
+        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_fin_endereco (id_end, fk_usuario, nm_lougradouro, nm_rua, nm_bairro, nm_uf, nr_lougradouro, ds_complemento) VALUES (sq_t_fin_endereco.nextval,1, ?, ?, ?, ?, ?,?)");
         stm.setString(1, address.getLogradouro());
+        stm.setString(2, address.getRua());
         stm.setString(3, address.getBairro());
         stm.setString(4, address.getEstado());
-        stm.setInt(2, address.getNumero());
-        stm.setString(5, address.getComplemento());
+        stm.setInt(5, address.getNumero());
+        stm.setString(6, address.getComplemento());
         stm.executeUpdate();
     }
     public void fecharConexao() throws SQLException {
@@ -38,7 +39,7 @@ public class AddressDao {
             throw new EntidadeNaoEcontradaException("Address não encontrado");
         return parseAddress(result);
     }
-    public List<Address> listar() throws SQLException {
+    public List<Address> getAll() throws SQLException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco");
         ResultSet result = stm.executeQuery();
         List<Address> lista = new ArrayList<>();
@@ -52,11 +53,12 @@ public class AddressDao {
         int idEnd = result.getInt("id_end");
         int fkUsuario = result.getInt("fk_usuario");
         String nomeLogradouro = result.getString("nm_lougradouro");
-        String rua = result.getString("nm_rua");
         int numero = result.getInt("nr_lougradouro");
-        String complemento = result.getString("ds_complemento");
         String bairro = result.getString("nm_bairro");
-        String estado=result.getString("nm_uf");
+        String estado = result.getString("nm_uf");
+        String rua = result.getString("nm_rua");
+        String complemento = result.getString("ds_complemento");
+
 
         return new Address(idEnd, fkUsuario, nomeLogradouro, rua, numero,complemento,bairro, estado);
 

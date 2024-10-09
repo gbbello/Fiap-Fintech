@@ -45,19 +45,19 @@ public class FintechAccount extends Profile {
 
     public void calcBalance(){
         this.balance = 0;
-            for (var curAccount: currentAccounts) {
+            for ( CurrentAccount curAccount: currentAccounts) {
                 this.balance += curAccount.getBalance();
             }
 
-            for (var invAccount: investmentAccounts) {
+            for ( InvestmentAccount invAccount: investmentAccounts) {
                 this.balance += invAccount.getBalance();
             }
 
-            for (var income : incomes) {
+            for ( Income income : incomes) {
                 this.balance += income.getValue();
             }
 
-            for (var outCome : getOutComes()) {
+            for (OutCome outCome : getOutComes()) {
                 this.balance -= outCome.getValue();
             }
     }
