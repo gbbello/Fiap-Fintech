@@ -5,8 +5,7 @@ public class FintechAccount extends Profile {
     //Atributos do objeto
     private String userName;
     private int accountType;
-    private ArrayList<InvestmentAccount> investmentAccounts =  new ArrayList<>();
-    private ArrayList<CurrentAccount> currentAccounts =  new ArrayList<>();
+    private ArrayList<Investment> investments =  new ArrayList<>();
     private ArrayList<Income> incomes = new ArrayList<>();
     private ArrayList<OutCome> outComes = new ArrayList<>();
     private double balance;
@@ -17,21 +16,17 @@ public class FintechAccount extends Profile {
     }
 
 
-    public FintechAccount(String name, String lastName, String rg, String cpf, String sex, String birthdate, String eMail, Address address, String userName, int accountType, ArrayList<InvestmentAccount> investmentAccounts, ArrayList<CurrentAccount> currentAccounts, ArrayList<OutCome> outComes,  ArrayList<Income> incomes) {
+    public FintechAccount(String name, String lastName, String rg, String cpf, String sex, String birthdate, String eMail, Address address, String userName, int accountType, ArrayList<Investment> investments, ArrayList<OutCome> outComes, ArrayList<Income> incomes) {
         super(name, lastName, rg, cpf, sex, birthdate, eMail, address);
         this.userName = userName;
         this.accountType = accountType;
-        this.investmentAccounts = investmentAccounts;
-        this.currentAccounts = currentAccounts;
+        this.investments = investments;
         this.incomes = incomes;
         this.outComes = outComes;
     }
 
-    public void addCurrentAccount(CurrentAccount obj){
-        this.currentAccounts.add(obj);
-    }
-    public void addInvestmentAccount(InvestmentAccount obj){
-        this.investmentAccounts.add(obj);
+    public void addInvestmentAccount(Investment obj){
+        this.investments.add(obj);
     }
 
     public void addIncome(Income obj){
@@ -45,13 +40,6 @@ public class FintechAccount extends Profile {
 
     public void calcBalance(){
         this.balance = 0;
-            for ( CurrentAccount curAccount: currentAccounts) {
-                this.balance += curAccount.getBalance();
-            }
-
-            for ( InvestmentAccount invAccount: investmentAccounts) {
-                this.balance += invAccount.getBalance();
-            }
 
             for ( Income income : incomes) {
                 this.balance += income.getValue();
@@ -80,20 +68,12 @@ public class FintechAccount extends Profile {
         this.accountType = accountType;
     }
 
-    public ArrayList<InvestmentAccount> getInvestmentAccount() {
-        return investmentAccounts;
+    public ArrayList<Investment> getInvestmentAccount() {
+        return investments;
     }
 
-    public void setInvestmentAccount(ArrayList<InvestmentAccount> investmentAccounts) {
-        this.investmentAccounts = investmentAccounts;
-    }
-
-    public ArrayList<CurrentAccount> getCurrentAccount() {
-        return currentAccounts;
-    }
-
-    public void setCurrentAccount(ArrayList<CurrentAccount> currentAccounts) {
-        this.currentAccounts = currentAccounts;
+    public void setInvestmentAccount(ArrayList<Investment> investments) {
+        this.investments = investments;
     }
 
     public ArrayList<Income> getIncomes() {

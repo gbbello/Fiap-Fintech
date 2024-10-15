@@ -23,7 +23,6 @@ public class Address {
 
 
     public Address( int fkUsuario, String nomeLogradouro,  int numero, String complemento, String rua, String bairro, String estado) {
-        this.fkUsuario= fkUsuario;
         this.nomeLogradouro = nomeLogradouro;
         this.rua = rua;
         this.numero = numero;

@@ -1,17 +1,14 @@
 package br.com.fiap.model;
 
-public abstract class  BankAccount {
+public  class  BankAccount {
 
     //Atributos do objeto
+    private int idIns;
     private int bankCode;
     private int ag;
     private int cc;
-    private double balance;
 
     //Construtores
-    public BankAccount() {
-
-    }
 
     public BankAccount(int bankCode, int ag, int cc) {
         this.bankCode = bankCode;
@@ -19,15 +16,21 @@ public abstract class  BankAccount {
         this.cc = cc;
     }
 
-    public BankAccount(int bankCode, int ag, int cc, double balance) {
+    public BankAccount(int idIns,int bankCode, int ag, int cc) {
+        this.idIns = idIns;
         this.bankCode = bankCode;
         this.ag = ag;
         this.cc = cc;
-        this.balance = balance;
     }
 
-
     //Get and Setter
+    public int getIdIns() {
+        return idIns;
+    }
+
+    public void setIdIns(int idIns) {
+        this.idIns = idIns;
+    }
     public int getBankCode() {
         return bankCode;
     }
@@ -52,10 +55,5 @@ public abstract class  BankAccount {
         this.cc = cc;
     }
 
-    public double getBalance() { return balance; }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 
 }

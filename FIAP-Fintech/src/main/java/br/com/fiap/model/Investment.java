@@ -1,26 +1,21 @@
 package br.com.fiap.model;
 
-public class InvestmentAccount extends BankAccount{
+public class Investment extends BankAccount{
     private double tax;// taxa de manutençao da conta
     private double returnRate;// taxa de rendimento
 
-    public InvestmentAccount(double tax, double returnRate) {
-        this.tax = tax;
-        this.returnRate = returnRate;
-    }
 
-    public InvestmentAccount(int bankCode, int ag, int cc, double tax, double returnRate) {
+    public Investment(int bankCode, int ag, int cc, double balance, double tax, double returnRate) {
         super(bankCode, ag, cc);
         this.tax = tax;
         this.returnRate = returnRate;
     }
 
-    public InvestmentAccount(int bankCode, int ag, int cc, double balance, double tax, double returnRate) {
-        super(bankCode, ag, cc, balance);
+    public Investment(int idIns, int bankCode, int ag, int cc, double tax, double returnRate) {
+        super(idIns,bankCode, ag, cc);
         this.tax = tax;
         this.returnRate = returnRate;
     }
-
 //Getter and Setter
     public double getTax() {
         return tax;

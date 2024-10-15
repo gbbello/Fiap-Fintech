@@ -1,20 +1,50 @@
 package br.com.fiap.model;
 
-public class Income extends Transactions{
+import java.sql.Date;
+
+public class Income extends Transactions {
+    private int idRecebimento;
+    private int fkUsuario;
+    private int fkInstFinanceira;
     private String incomeFrom;
-    private int frequency; // Número de dias
 
-    public Income(String incomeFrom, int frequency) {
-        this.incomeFrom = incomeFrom;
-        this.frequency = frequency;
+
+    public Income(int fkUsuario, int fkInstFinanceira,Double value, Date date, String type, String description) {
+        super(value, date, type, description);
+        this.fkUsuario = fkUsuario;
+        this.fkInstFinanceira = fkInstFinanceira;
     }
 
-    public Income(Integer type, Double value, String date, String description, String incomeFrom, int frequency) {
-        super(type, value, date, description);
-        this.incomeFrom = incomeFrom;
-        this.frequency = frequency;
+    public Income(int idRecebimento, int fkUsuario, int fkInstFinanceira, Double value, Date date, String type, String description) {
+        super(value, date, type, description);
+        this.idRecebimento = idRecebimento;
+        this.fkUsuario = fkUsuario;
+        this.fkInstFinanceira = fkInstFinanceira;
     }
 
+    public int getIdRecebimento() {
+        return idRecebimento;
+    }
+
+    public void setIdRecebimento(int idRecebimento) {
+        this.idRecebimento = idRecebimento;
+    }
+
+    public int getFkUsuario() {
+        return fkUsuario;
+    }
+
+    public void setFkUsuario(int fkUsuario) {
+        this.fkUsuario = fkUsuario;
+    }
+
+    public int getFkInstFinanceira() {
+        return fkInstFinanceira;
+    }
+
+    public void setFkInstFinanceira(int fkInstFinanceira) {
+        this.fkInstFinanceira = fkInstFinanceira;
+    }
 
     public String getIncomeFrom() {
         return incomeFrom;

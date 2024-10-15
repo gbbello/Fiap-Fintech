@@ -1,35 +1,27 @@
 package br.com.fiap.model;
 
+import java.sql.Date;
+
 public abstract class Transactions {
     //Atributos do objeto
     private Double value;
-    private String date;
+    private Date date;
+    private String type;
     private String description;
+
 
     //Construtores
     public Transactions(){
 
     }
 
-    public Transactions(Integer type, Double value, String date, String description) {
+    public Transactions(Double value, Date date, String type, String description) {
         this.value = value;
         this.date = date;
+        this.type = type;
         this.description = description;
     }
 
-    //Metodos
-    //Deleto transacao
-    public void delete(boolean confirmation){
-        if(confirmation){
-            System.out.println("Deleçao realizada com sucesso," +this.description + "no valor de:" + this.value );
-        }else{
-            System.out.println("Deleçao cancelada," + this.value  );
-        }
-    }
-    //Edito transacao
-    public void edit( String attribute, String newValue ){
-        System.out.println("O campo:" + attribute + " foi atualizado com sucesso" );
-    }
 
 
     public Double getValue() {
@@ -40,11 +32,11 @@ public abstract class Transactions {
         this.value = value;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -54,5 +46,13 @@ public abstract class Transactions {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

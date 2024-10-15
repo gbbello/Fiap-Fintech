@@ -1,6 +1,6 @@
-package br.com.fiap.dao;
+package br.com.fiap.dao.impl;
 
-import br.com.fiap.exception.EntidadeNaoEcontradaException;
+import br.com.fiap.dao.Dao;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.Address;
 
@@ -10,15 +10,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class AddressDao {
+public class AddressDaoImpl implements Dao<Address> {
 
     private Connection conexao;
-    public AddressDao() throws SQLException {
+
+    public AddressDaoImpl() throws SQLException {
         conexao = ConnectionFactory.getConnection();
     }
-    public void cadastrar(Address address) throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("INSERT INTO t_fin_endereco (id_end, fk_usuario, nm_lougradouro, nm_rua, nm_bairro, nm_uf, nr_lougradouro, ds_complemento) VALUES (sq_t_fin_endereco.nextval,1, ?, ?, ?, ?, ?,?)");
+
+    @Override
+    public void save(Address address) throws SQLException {
+
+        String sql = "INSERT INTO t_fin_endereco (id_end, fk_usuario, nm_lougradouro, nm_rua, nm_bairro, nm_uf, nr_lougradouro, ds_complemento)" +
+                " VALUES (sq_t_fin_endereco.nextval,1, ?, ?, ?, ?, ?,?)";
+
+        PreparedStatement stm = conexao.prepareStatement(sql);
+
         stm.setString(1, address.getLogradouro());
         stm.setString(2, address.getRua());
         stm.setString(3, address.getBairro());
@@ -27,29 +36,34 @@ public class AddressDao {
         stm.setString(6, address.getComplemento());
         stm.executeUpdate();
     }
-    public void fecharConexao() throws SQLException {
-        conexao.close();
+
+    @Override
+    public void update(Address address, String[] params) throws SQLException {
+
     }
 
-    public Address pesquisar(int id) throws SQLException, EntidadeNaoEcontradaException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco WHERE id_end = ?");
-        stm.setLong(1, id);
-        ResultSet result = stm.executeQuery();
-        if (!result.next())
-            throw new EntidadeNaoEcontradaException("Address não encontrado");
-        return parseAddress(result);
+    @Override
+    public void delete(Address address) throws SQLException {
+
     }
+
+    @Override
+    public Optional<Address> get(long id) throws SQLException {
+        return Optional.empty();
+    }
+
+    @Override
     public List<Address> getAll() throws SQLException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco");
         ResultSet result = stm.executeQuery();
         List<Address> lista = new ArrayList<>();
-        while (result.next()){
+        while (result.next()) {
             lista.add(parseAddress(result));
         }
         return lista;
     }
 
-    private Address parseAddress (ResultSet result) throws SQLException{
+    private Address parseAddress(ResultSet result) throws SQLException {
         int idEnd = result.getInt("id_end");
         int fkUsuario = result.getInt("fk_usuario");
         String nomeLogradouro = result.getString("nm_lougradouro");
@@ -59,8 +73,11 @@ public class AddressDao {
         String rua = result.getString("nm_rua");
         String complemento = result.getString("ds_complemento");
 
+        return new Address(idEnd, fkUsuario, nomeLogradouro, rua, numero, complemento, bairro, estado);
 
-        return new Address(idEnd, fkUsuario, nomeLogradouro, rua, numero,complemento,bairro, estado);
+    }
 
+    public void fecharConexao() throws SQLException {
+        conexao.close();
     }
 }
