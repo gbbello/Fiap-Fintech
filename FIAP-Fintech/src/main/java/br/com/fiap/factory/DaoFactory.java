@@ -1,9 +1,6 @@
 package br.com.fiap.factory;
 
-import br.com.fiap.dao.impl.AddressDaoImpl;
-import br.com.fiap.dao.impl.BankAccountDaoImpl;
-import br.com.fiap.dao.impl.IncomeDaoImpl;
-import br.com.fiap.dao.impl.OutComeDaoImpl;
+import br.com.fiap.dao.impl.*;
 
 import java.sql.SQLException;
 
@@ -19,5 +16,13 @@ public class DaoFactory {
     }
     public static OutComeDaoImpl getOutComeDao() throws SQLException{
         return new OutComeDaoImpl();
+    }
+
+    public static FintechAccountDaoImpl getFintechAccountDao() throws SQLException {
+        return new FintechAccountDaoImpl();
+    }
+
+    public static LoginDaoImpl getLoginDao() throws SQLException {
+        return new LoginDaoImpl();
     }
 }

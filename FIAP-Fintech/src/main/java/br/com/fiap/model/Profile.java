@@ -1,39 +1,46 @@
 package br.com.fiap.model;
 
+import java.sql.Date;
+
 public abstract class Profile {
     //Atributos do objeto
+    private long idUsuario;
     private String name;
-    private String lastName;
     private String rg;
     private String cpf;
     private String sex;
-    private String birthdate;
-    private String eMail;
-    private Address address;
+    private Date birthdate;
+    private String educationLevel;
+    private String martilStatus;
 
-    //Construtores
-    public Profile(){
-    }
-
-    public Profile(String name, String lastName, String rg, String cpf, String sex, String birthdate, String eMail, Address address) {
+    public Profile(String name, String rg, String cpf, String sex, Date birthdate, String educationLevel, String martilStatus) {
         this.name = name;
-        this.lastName = lastName;
         this.rg = rg;
         this.cpf = cpf;
         this.sex = sex;
         this.birthdate = birthdate;
-        this.eMail = eMail;
-        this.address = address;
+        this.educationLevel = educationLevel;
+        this.martilStatus = martilStatus;
     }
 
-
-
-    //Edito o profile
-    public void edit(String attribute, String newValue ){
-        System.out.println("O campo:" + attribute + " foi atualizado com sucesso" );
+    public Profile(long idUsuario, String name, String rg, String cpf, String sex, Date birthdate, String educationLevel, String martilStatus) {
+        this.idUsuario = idUsuario;
+        this.name = name;
+        this.rg = rg;
+        this.cpf = cpf;
+        this.sex = sex;
+        this.birthdate = birthdate;
+        this.educationLevel = educationLevel;
+        this.martilStatus = martilStatus;
     }
 
-    //Get and Setter
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     public String getName() {
         return name;
@@ -41,14 +48,6 @@ public abstract class Profile {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getRg() {
@@ -75,27 +74,27 @@ public abstract class Profile {
         this.sex = sex;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
-    public String geteMail() {
-        return eMail;
+    public String getEducationLevel() {
+        return educationLevel;
     }
 
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
+    public void setEducationLevel(String educationLevel) {
+        this.educationLevel = educationLevel;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getMartilStatus() {
+        return martilStatus;
     }
 
-    public void setEndereco(Address address) {
-        this.address = address;
+    public void setMartilStatus(String martilStatus) {
+        this.martilStatus = martilStatus;
     }
 }

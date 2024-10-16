@@ -1,12 +1,13 @@
 package br.com.fiap.dao;
 
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
+
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public interface Dao<T> {
 
-    Optional<T> get(long id) throws SQLException;
+    T get(long id) throws SQLException, EntidadeNaoEcontradaException;
 
     List<T> getAll() throws SQLException;
 

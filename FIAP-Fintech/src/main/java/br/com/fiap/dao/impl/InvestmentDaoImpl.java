@@ -5,12 +5,11 @@ import br.com.fiap.model.Investment;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class InvestmentDaoImpl implements Dao<Investment> {
     @Override
-    public Optional<Investment> get(long id) throws SQLException {
-        return Optional.empty();
+    public Investment get(long id) throws SQLException {
+        return null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package br.com.fiap.dao.impl;
 
 import br.com.fiap.dao.Dao;
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.BankAccount;
 
@@ -10,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BankAccountDaoImpl implements Dao<BankAccount> {
 
@@ -18,6 +18,28 @@ public class BankAccountDaoImpl implements Dao<BankAccount> {
 
     public BankAccountDaoImpl() throws SQLException {
         conexao = ConnectionFactory.getConnection();
+    }
+
+    @Override
+    public BankAccount get(long id) throws SQLException, EntidadeNaoEcontradaException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_inst_financeira WHERE id_ins = ?");
+        stm.setLong(1, id);
+        ResultSet result = stm.executeQuery();
+
+        if (!result.next()) throw new EntidadeNaoEcontradaException("Instituicao financeira nao encontrada");
+
+        return parseBankAccount(result);
+    }
+
+    @Override
+    public List<BankAccount> getAll() throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_inst_financeira");
+        ResultSet result = stm.executeQuery();
+        List<BankAccount> lista = new ArrayList<>();
+        while (result.next()) {
+            lista.add(parseBankAccount(result));
+        }
+        return lista;
     }
 
     @Override
@@ -41,22 +63,6 @@ public class BankAccountDaoImpl implements Dao<BankAccount> {
     @Override
     public void delete(BankAccount bankAccount) throws SQLException {
 
-    }
-
-    @Override
-    public Optional<BankAccount> get(long id) throws SQLException {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<BankAccount> getAll() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_inst_financeira");
-        ResultSet result = stm.executeQuery();
-        List<BankAccount> lista = new ArrayList<>();
-        while (result.next()) {
-            lista.add(parseBankAccount(result));
-        }
-        return lista;
     }
 
     private BankAccount parseBankAccount(ResultSet result) throws SQLException {

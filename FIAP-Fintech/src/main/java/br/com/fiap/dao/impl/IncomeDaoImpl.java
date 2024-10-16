@@ -1,13 +1,13 @@
 package br.com.fiap.dao.impl;
 
 import br.com.fiap.dao.Dao;
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.Income;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class IncomeDaoImpl implements Dao<Income> {
 
@@ -15,6 +15,28 @@ public class IncomeDaoImpl implements Dao<Income> {
 
     public IncomeDaoImpl() throws SQLException {
         conexao = ConnectionFactory.getConnection();
+    }
+
+    @Override
+    public Income get(long id) throws SQLException, EntidadeNaoEcontradaException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_recebimento WHERE id_rec = ?");
+        stm.setLong(1, id);
+        ResultSet result = stm.executeQuery();
+
+        if (!result.next()) throw new EntidadeNaoEcontradaException("Recebimento nao encontrado");
+
+        return parseIncome(result);
+    }
+
+    @Override
+    public List<Income> getAll() throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_recebimento");
+        ResultSet result = stm.executeQuery();
+        List<Income> lista = new ArrayList<>();
+        while (result.next()) {
+            lista.add(parseIncome(result));
+        }
+        return lista;
     }
 
     public void save(Income income) throws SQLException {
@@ -32,6 +54,7 @@ public class IncomeDaoImpl implements Dao<Income> {
         stm.executeUpdate();
     }
 
+
     @Override
     public void update(Income income, String[] params) throws SQLException {
 
@@ -40,22 +63,6 @@ public class IncomeDaoImpl implements Dao<Income> {
     @Override
     public void delete(Income income) throws SQLException {
 
-    }
-
-    @Override
-    public Optional<Income> get(long id) throws SQLException {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Income> getAll() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_recebimento");
-        ResultSet result = stm.executeQuery();
-        List<Income> lista = new ArrayList<>();
-        while (result.next()) {
-            lista.add(parseIncome(result));
-        }
-        return lista;
     }
 
     private Income parseIncome(ResultSet result) throws SQLException {

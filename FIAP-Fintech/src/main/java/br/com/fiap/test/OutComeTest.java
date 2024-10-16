@@ -1,6 +1,7 @@
 package br.com.fiap.test;
 
 import br.com.fiap.dao.impl.OutComeDaoImpl;
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
 import br.com.fiap.factory.DaoFactory;
 import br.com.fiap.model.OutCome;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class OutComeTest {
     public static void main(String[] args) {
         cadastro();
+        pesquisar(6);
         getAll();
     }
 
@@ -40,6 +42,18 @@ public class OutComeTest {
             dao.fecharConexao();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        }
+    }
+
+    public static void pesquisar(long id){
+        try {
+            OutComeDaoImpl doa = new OutComeDaoImpl();
+            OutCome outCome =  doa.get(id);
+            System.out.println(outCome.getIdDespesa() + ", " +outCome.getFkUsuario() + ", " + outCome.getFkInstFinanceira() + ", " + outCome.getValue()+", " + outCome.getType()+", " + outCome.getDate());
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        } catch (EntidadeNaoEcontradaException e) {
+            System.err.println("Identificação nao existe na tabela");
         }
     }
 }

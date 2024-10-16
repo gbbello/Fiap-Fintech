@@ -1,6 +1,7 @@
 package br.com.fiap.dao.impl;
 
 import br.com.fiap.dao.Dao;
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.Address;
 
@@ -10,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class AddressDaoImpl implements Dao<Address> {
 
@@ -18,6 +18,29 @@ public class AddressDaoImpl implements Dao<Address> {
 
     public AddressDaoImpl() throws SQLException {
         conexao = ConnectionFactory.getConnection();
+    }
+
+
+    @Override
+    public Address get(long id) throws SQLException, EntidadeNaoEcontradaException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco WHERE id_end = ?");
+        stm.setLong(1, id);
+        ResultSet result = stm.executeQuery();
+
+        if (!result.next()) throw new EntidadeNaoEcontradaException("Despesa nao Encontrada");
+
+        return parseAddress(result);
+    }
+
+    @Override
+    public List<Address> getAll() throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco");
+        ResultSet result = stm.executeQuery();
+        List<Address> lista = new ArrayList<>();
+        while (result.next()) {
+            lista.add(parseAddress(result));
+        }
+        return lista;
     }
 
     @Override
@@ -45,22 +68,6 @@ public class AddressDaoImpl implements Dao<Address> {
     @Override
     public void delete(Address address) throws SQLException {
 
-    }
-
-    @Override
-    public Optional<Address> get(long id) throws SQLException {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<Address> getAll() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco");
-        ResultSet result = stm.executeQuery();
-        List<Address> lista = new ArrayList<>();
-        while (result.next()) {
-            lista.add(parseAddress(result));
-        }
-        return lista;
     }
 
     private Address parseAddress(ResultSet result) throws SQLException {

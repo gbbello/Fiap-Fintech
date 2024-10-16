@@ -1,13 +1,13 @@
 package br.com.fiap.dao.impl;
 
 import br.com.fiap.dao.Dao;
+import br.com.fiap.exception.EntidadeNaoEcontradaException;
 import br.com.fiap.factory.ConnectionFactory;
 import br.com.fiap.model.OutCome;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class OutComeDaoImpl implements Dao<OutCome> {
 
@@ -17,6 +17,28 @@ public class OutComeDaoImpl implements Dao<OutCome> {
         conexao = ConnectionFactory.getConnection();
     }
 
+    @Override
+    public OutCome get(long id) throws SQLException, EntidadeNaoEcontradaException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_despesa WHERE id_despesa = ?");
+        stm.setLong(1, id);
+        ResultSet result = stm.executeQuery();
+
+        if (!result.next()) throw new EntidadeNaoEcontradaException("Despesa nao Encontrada");
+
+        return parseOutCome(result);
+    }
+
+
+    public List<OutCome> getAll() throws SQLException {
+        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_despesa");
+        ResultSet result = stm.executeQuery();
+        List<OutCome> lista = new ArrayList<>();
+        while (result.next()) {
+            lista.add(parseOutCome(result));
+        }
+        return lista;
+    }
+    @Override
     public void save(OutCome outCome) throws SQLException {
 
         String sql = "INSERT INTO t_fin_despesa (id_despesa, fk_usuario, fk_inst_financeira, vl_despesa, nr_parcela, dt_despesas, tipo_despesa, ds_despesa)" +
@@ -41,22 +63,6 @@ public class OutComeDaoImpl implements Dao<OutCome> {
     @Override
     public void delete(OutCome outCome) throws SQLException {
 
-    }
-
-    @Override
-    public Optional<OutCome> get(long id) throws SQLException {
-        return Optional.empty();
-    }
-
-    @Override
-    public List<OutCome> getAll() throws SQLException {
-        PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_despesa");
-        ResultSet result = stm.executeQuery();
-        List<OutCome> lista = new ArrayList<>();
-        while (result.next()) {
-            lista.add(parseOutCome(result));
-        }
-        return lista;
     }
 
     private OutCome parseOutCome(ResultSet result) throws SQLException {
