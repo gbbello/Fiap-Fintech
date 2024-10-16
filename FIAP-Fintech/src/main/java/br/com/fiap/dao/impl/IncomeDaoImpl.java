@@ -18,7 +18,7 @@ public class IncomeDaoImpl implements Dao<Income> {
     }
 
     @Override
-    public Income get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public Income getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_recebimento WHERE id_rec = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -39,7 +39,7 @@ public class IncomeDaoImpl implements Dao<Income> {
         return lista;
     }
 
-    public void save(Income income) throws SQLException {
+    public void insert(Income income) throws SQLException {
 
         String sql = "INSERT INTO t_fin_recebimento (id_rec, fk_usuario, fk_inst_financeira, vl_receb, tipo_receb, dt_receb,  ds_receb)" +
                 " VALUES (sq_t_fin_recebimento.nextval,?, ?, ?, ?, ?, ?)";

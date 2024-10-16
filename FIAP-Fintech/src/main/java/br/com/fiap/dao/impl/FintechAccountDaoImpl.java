@@ -20,7 +20,7 @@ public class FintechAccountDaoImpl implements Dao<FintechAccount> {
         conexao = ConnectionFactory.getConnection();
     }
     @Override
-    public FintechAccount get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public FintechAccount getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_usuario WHERE id_usu = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -42,7 +42,7 @@ public class FintechAccountDaoImpl implements Dao<FintechAccount> {
     }
 
     @Override
-    public void save(FintechAccount fintechAccount) throws SQLException {
+    public void insert(FintechAccount fintechAccount) throws SQLException {
         String sql = "INSERT INTO t_fin_usuario (id_usu, nm_completo, nr_rg, nr_cpf, dt_nascimento, tp_sexo, tp_escolaridade, tp_estado_civil)" +
                 " VALUES (sq_t_fin_usuario.nextval,?, ?, ?, ?, ?, ?,?)";
 

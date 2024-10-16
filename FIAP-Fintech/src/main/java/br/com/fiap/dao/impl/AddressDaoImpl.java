@@ -22,7 +22,7 @@ public class AddressDaoImpl implements Dao<Address> {
 
 
     @Override
-    public Address get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public Address getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_endereco WHERE id_end = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -44,7 +44,7 @@ public class AddressDaoImpl implements Dao<Address> {
     }
 
     @Override
-    public void save(Address address) throws SQLException {
+    public void insert(Address address) throws SQLException {
 
         String sql = "INSERT INTO t_fin_endereco (id_end, fk_usuario, nm_lougradouro, nm_rua, nm_bairro, nm_uf, nr_lougradouro, ds_complemento)" +
                 " VALUES (sq_t_fin_endereco.nextval,1, ?, ?, ?, ?, ?,?)";

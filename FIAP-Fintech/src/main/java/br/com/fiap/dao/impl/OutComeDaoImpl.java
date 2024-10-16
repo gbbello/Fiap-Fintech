@@ -18,7 +18,7 @@ public class OutComeDaoImpl implements Dao<OutCome> {
     }
 
     @Override
-    public OutCome get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public OutCome getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_despesa WHERE id_despesa = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -39,7 +39,7 @@ public class OutComeDaoImpl implements Dao<OutCome> {
         return lista;
     }
     @Override
-    public void save(OutCome outCome) throws SQLException {
+    public void insert(OutCome outCome) throws SQLException {
 
         String sql = "INSERT INTO t_fin_despesa (id_despesa, fk_usuario, fk_inst_financeira, vl_despesa, nr_parcela, dt_despesas, tipo_despesa, ds_despesa)" +
                 " VALUES (sq_t_fin_despesa.nextval,?, ?, ?, ?, ?, ?, ?)";

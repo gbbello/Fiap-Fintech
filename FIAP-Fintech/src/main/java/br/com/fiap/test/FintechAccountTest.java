@@ -10,19 +10,21 @@ import java.util.List;
 
 public class FintechAccountTest {
     public static void main(String[] args) {
-      cadastro();
-     getAll();
+        addNew();
+        getAll();
 //       pesquisar(1);
 
     }
 
-    public static void cadastro() {
+    public static void addNew() {
         try {
-            java.sql.Date sqlDate = new java.sql.Date(1986, 4, 16);
-            FintechAccount FintechAccount1 = new FintechAccount("Guilhreme Brenner Bello", "09319340", "01293243010", "M", sqlDate, "Ensino Médio", "União estável");
-            DaoFactory.getFintechAccountDao().save(FintechAccount1);
+            for (int i = 1; i <= 5; i++) {
+                java.sql.Date sqlDate = new java.sql.Date(1986, 4, 16 + i);
+                FintechAccount FintechAccount1 = new FintechAccount("Guilhreme Brenner Bello " + i, "09319340", "01293243010", "M", sqlDate, "Ensino Médio", "União estável");
+                DaoFactory.getFintechAccountDao().insert(FintechAccount1);
+                System.out.println("Conta cadastrada!");
+            }
             DaoFactory.getFintechAccountDao().fecharConexao();
-            System.out.println("Conta cadastrada!");
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -45,7 +47,7 @@ public class FintechAccountTest {
     public static void pesquisar(long id) {
         try {
             FintechAccountDaoImpl doa = new FintechAccountDaoImpl();
-            FintechAccount fintechAccount = doa.get(id);
+            FintechAccount fintechAccount = doa.getById(id);
             System.out.println(fintechAccount.getIdUsuario() + " " + fintechAccount.getRg() + ", " + fintechAccount.getCpf() + ", " + fintechAccount.getSex() + ", " + fintechAccount.getBirthdate() + ", " + fintechAccount.getEducationLevel() + ", " + fintechAccount.getMartilStatus());
         } catch (SQLException e) {
             System.err.println(e.getMessage());

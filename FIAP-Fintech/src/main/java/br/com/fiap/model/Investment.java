@@ -1,35 +1,65 @@
 package br.com.fiap.model;
 
-public class Investment extends BankAccount{
-    private double tax;// taxa de manutençao da conta
-    private double returnRate;// taxa de rendimento
+public class Investment{
+    private long idInv;
+    private long fkUsuario;
+    private long fkInstFinanceira;
+    private Double vlInvest;
+    private Double profitableRate;
 
-
-    public Investment(int bankCode, int ag, int cc, double balance, double tax, double returnRate) {
-        super(bankCode, ag, cc);
-        this.tax = tax;
-        this.returnRate = returnRate;
+    public Investment(long idInv, long fkUsuario, long fkInstFinanceira, Double vlInvest, Double profitableRate) {
+        this.idInv = idInv;
+        this.fkUsuario = fkUsuario;
+        this.fkInstFinanceira = fkInstFinanceira;
+        this.vlInvest = vlInvest;
+        this.profitableRate = profitableRate;
     }
 
-    public Investment(int idIns, int bankCode, int ag, int cc, double tax, double returnRate) {
-        super(idIns,bankCode, ag, cc);
-        this.tax = tax;
-        this.returnRate = returnRate;
-    }
-//Getter and Setter
-    public double getTax() {
-        return tax;
+    public Investment(long fkUsuario, long fkInstFinanceira, Double vlInvest, Double profitableRate) {
+        this.fkUsuario = fkUsuario;
+        this.fkInstFinanceira = fkInstFinanceira;
+        this.vlInvest = vlInvest;
+        this.profitableRate = profitableRate;
     }
 
-    public void setTax(double tax) {
-        this.tax = tax;
+    public long getIdInv() {
+        return idInv;
     }
 
-    public double getReturnRate() {
-        return returnRate;
+    public void setIdInv(long idInv) {
+        this.idInv = idInv;
     }
 
-    public void setReturnRate(double returnRate) {
-        this.returnRate = returnRate;
+    public long getFkUsuario() {
+        return fkUsuario;
     }
+
+    public void setFkUsuario(long fkUsuario) {
+        this.fkUsuario = fkUsuario;
+    }
+
+    public long getFkInstFinanceira() {
+        return fkInstFinanceira;
+    }
+
+    public void setFkInstFinanceira(long fkInstFinanceira) {
+        this.fkInstFinanceira = fkInstFinanceira;
+    }
+
+    public double getVlInvest() {
+        return vlInvest;
+    }
+
+    public void setVlInvest(double vlInvest) {
+        this.vlInvest = vlInvest;
+    }
+
+    public double getProfitableRate() {
+        return profitableRate;
+    }
+
+    public void setProfitableRate(double profitableRate) {
+        this.profitableRate = profitableRate;
+    }
+
 }

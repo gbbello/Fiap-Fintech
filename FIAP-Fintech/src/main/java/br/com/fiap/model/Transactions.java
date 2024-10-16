@@ -3,14 +3,11 @@ package br.com.fiap.model;
 import java.sql.Date;
 
 public abstract class Transactions {
-    //Atributos do objeto
     private Double value;
     private Date date;
     private String type;
     private String description;
 
-
-    //Construtores
     public Transactions(){
 
     }

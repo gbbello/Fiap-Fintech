@@ -21,7 +21,7 @@ public class BankAccountDaoImpl implements Dao<BankAccount> {
     }
 
     @Override
-    public BankAccount get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public BankAccount getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_inst_financeira WHERE id_ins = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -43,7 +43,7 @@ public class BankAccountDaoImpl implements Dao<BankAccount> {
     }
 
     @Override
-    public void save(BankAccount bankAccount) throws SQLException {
+    public void insert(BankAccount bankAccount) throws SQLException {
 
         String sql = "INSERT INTO t_fin_inst_financeira (id_ins, nr_inst, nr_ag, nr_cc)" +
                 " VALUES (sq_t_fin_inst_financeira.nextval,?, ?, ?)";

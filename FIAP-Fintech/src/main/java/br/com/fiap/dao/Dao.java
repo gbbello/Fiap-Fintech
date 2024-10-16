@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface Dao<T> {
 
-    T get(long id) throws SQLException, EntidadeNaoEcontradaException;
+    T getById(long id) throws SQLException, EntidadeNaoEcontradaException;
 
     List<T> getAll() throws SQLException;
 
-    void save(T t) throws SQLException;
+    void insert(T t) throws SQLException;
 
     void update(T t, String[] params) throws SQLException;
 

@@ -22,7 +22,7 @@ public class LoginDaoImpl implements Dao<Login> {
     }
 
     @Override
-    public Login get(long id) throws SQLException, EntidadeNaoEcontradaException {
+    public Login getById(long id) throws SQLException, EntidadeNaoEcontradaException {
         PreparedStatement stm = conexao.prepareStatement("SELECT * FROM t_fin_autentificacao WHERE id_aut = ?");
         stm.setLong(1, id);
         ResultSet result = stm.executeQuery();
@@ -44,7 +44,7 @@ public class LoginDaoImpl implements Dao<Login> {
     }
 
     @Override
-    public void save(Login login) throws SQLException {
+    public void insert(Login login) throws SQLException {
 
         String sql = "INSERT INTO t_fin_autentificacao (id_aut, fk_usuario, email, senha, st_autenticacao, dt_cadastro)" +
                 " VALUES (sq_t_fin_autentificacao.nextval,?, ?, ?, ?, ?)";
@@ -74,8 +74,8 @@ public class LoginDaoImpl implements Dao<Login> {
          long fkUsuario= result.getLong("fk_usuario");
          String email= result.getString("email");
          String password= result.getString("senha");
-         String statusAutentification= result.getString("st_autentificacao");
-         Date dtRegistration= result.getDate("dtCadastro");
+         String statusAutentification= result.getString("st_autenticacao");
+         Date dtRegistration= result.getDate("dt_cadastro");
 
         return new Login(idLogin, fkUsuario, email, password, statusAutentification, dtRegistration);
 

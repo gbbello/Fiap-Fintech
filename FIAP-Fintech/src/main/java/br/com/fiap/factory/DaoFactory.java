@@ -25,4 +25,12 @@ public class DaoFactory {
     public static LoginDaoImpl getLoginDao() throws SQLException {
         return new LoginDaoImpl();
     }
+
+    public static NotificationDaoImpl getNotificationDao() throws SQLException {
+        return new NotificationDaoImpl();
+    }
+
+    public static InvestmentDaoImpl getInvestmentDao() throws SQLException {
+     return new InvestmentDaoImpl();
+    }
 }

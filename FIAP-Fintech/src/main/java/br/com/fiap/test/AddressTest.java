@@ -10,20 +10,21 @@ import java.util.List;
 
 public class AddressTest {
     public static void main(String[] args) {
-        cadastro();
+        //addNew();
         getAll();
-        pesquisar(16);
+        //pesquisar(1);
     }
 
-    public static void cadastro(){
+    public static void addNew(){
         try {
-            Address Address1 = new Address(1,"Casa2", 170, "A","Rua Odilon Martins de Andrades", "Recreio dos Bandeirantes","RJ");
-            DaoFactory.getAddressDao().save(Address1);
-            Address Address2 = new Address(1,"Casa1", 173, "A","Rua Odilon Martins de Andrades", "Recreio dos Bandeirantes","RJ");
-            DaoFactory.getAddressDao().save(Address2);
+            for (int i=1; i <= 5; i++) {
+                Address Address= new Address(1, "Casa"+i, 170+i, "A", "Rua Odilon Martins de Andrades", "Recreio dos Bandeirantes", "RJ");
+                DaoFactory.getAddressDao().insert(Address);
+                System.out.println("Endereço cadastrado!");
+            }
 
             DaoFactory.getAddressDao().fecharConexao();
-            System.out.println("Endereço cadastrado!");
+
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
@@ -47,7 +48,7 @@ public class AddressTest {
     public static void pesquisar(long id){
         try {
             AddressDaoImpl doa = new AddressDaoImpl();
-            Address address =  doa.get(id);
+            Address address =  doa.getById(id);
             System.out.println(address.getIdEnd()+ " " + address.getFkUsuario() + ", " + address.getLogradouro());
             System.out.println(address.getRua()+ " " + address.getNumero() + ", " + address.getComplemento() + ", " + address.getBairro() + ", " + address.getEstado()  );
         }catch (SQLException e){
